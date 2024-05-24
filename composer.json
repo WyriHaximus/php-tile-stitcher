@@ -1,0 +1,53 @@
+{
+  "name": "wyrihaximus/tile-stitcher",
+  "description": "\ud83d\uddfa\ufe0f Tile stitcher",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Cees-Jan Kiewiet",
+      "email": "ceesjank@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-gd": "^8.2",
+    "thecodingmachine/safe": "^2.5"
+  },
+  "require-dev": {
+    "wyrihaximus/test-utilities": "^6.0.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "WyriHaximus\\TileStitcher\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "WyriHaximus\\Tests\\TileStitcher\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "composer-unused/composer-unused-plugin": true,
+      "composer/package-versions-deprecated": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true,
+      "icanhazstring/composer-unused": true,
+      "infection/extension-installer": true
+    },
+    "platform": {
+      "php": "8.2.13"
+    },
+    "sort-packages": true
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "composer normalize",
+      "composer update --lock --no-scripts"
+    ],
+    "post-update-cmd": [
+      "composer normalize",
+      "composer update --lock --no-scripts"
+    ]
+  }
+}
