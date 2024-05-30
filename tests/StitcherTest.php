@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace WyriHaximus\Tests\TileStitcher;
 
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use WyriHaximus\TestUtilities\TestCase;
 use WyriHaximus\TileStitcher\Dimensions;
 use WyriHaximus\TileStitcher\Map;
@@ -28,7 +30,7 @@ final class StitcherTest extends TestCase
     public function render(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile ...$tiles): void
     {
         $output = $this->getTmpDir() . time() . '-' . md5($expectedOutput) . '.png';
-        Stitcher::stitch(
+        (new Stitcher(new ImageManager(new Driver())))->stitch(
             Map::calculate(
                 new Dimensions(512, 512),
                 ...$tiles,
@@ -53,10 +55,10 @@ final class StitcherTest extends TestCase
                 $rgbResult            = imagecolorat($imResult, $x, $y);
                 $colorsResult         = imagecolorsforindex($imResult, $rgbResult);
 
+                self::assertEquals($colorsExpectedResult['alpha'], $colorsResult['alpha']);
                 self::assertEquals($colorsExpectedResult['red'], $colorsResult['red']);
                 self::assertEquals($colorsExpectedResult['green'], $colorsResult['green']);
                 self::assertEquals($colorsExpectedResult['blue'], $colorsResult['blue']);
-                self::assertEquals($colorsExpectedResult['alpha'], $colorsResult['alpha']);
             }
         }
 

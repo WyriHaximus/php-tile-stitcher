@@ -10,10 +10,10 @@
   ],
   "require": {
     "php": "^8.2",
-    "ext-gd": "^8.2",
-    "thecodingmachine/safe": "^2.5"
+    "intervention/image": "^3.6.4"
   },
   "require-dev": {
+    "ext-gd": "^8.2",
     "wyrihaximus/test-utilities": "^6.0.7"
   },
   "autoload": {
