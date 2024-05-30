@@ -25,6 +25,8 @@ The stitcher needs two things:
 
 declare(strict_types=1);
 
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use WyriHaximus\TileStitcher\Coordinate;
 use WyriHaximus\TileStitcher\Dimensions;
 use WyriHaximus\TileStitcher\Stitcher;
@@ -41,7 +43,13 @@ $tiles = [
     ),
 ];
 
-Stitcher::stitch(
+$stitcher = new Stitcher(
+    new ImageManager(
+        new Driver(),
+    ),
+);
+
+$stitcher->stitch(
     Map::calculate(
         new Dimensions(512, 512),
         ...$tiles,
@@ -58,9 +66,9 @@ The result:
 
 - [X] `Map::calculateMap` method to calculate the size of the resulting map image
 - [X] `Switcher::stitch` method to take the `Map` and stitch it together into an image
-- [ ] Pick up desired image format from render output argument, it's PNG only now
+- [X] Pick up desired image format from render output argument, it's PNG only now
 - [ ] Support pointing at directory and pick up all images utilizing a callable to parse coordinates
-- [ ] Switch to abstraction layer for image operations
+- [X] Switch to abstraction layer for image operations
 - [ ] Dynamic tile sizes + scaling up any tiles smaller than the largest tile
 
 # License

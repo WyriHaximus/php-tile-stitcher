@@ -1,6 +1,5 @@
 parameters:
 	ignoreErrors:
 		- '#GdImage#'
-		- '#imagefill#'
 includes:
 	- ../../vendor/wyrihaximus/test-utilities/rules.neon
