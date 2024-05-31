@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace WyriHaximus\TileStitcher;
 
-use const PHP_INT_MAX;
-use const PHP_INT_MIN;
+use function max;
+use function min;
 
 final readonly class Map
 {
@@ -28,30 +28,21 @@ final readonly class Map
         Dimensions $tileSize,
         Tile ...$tiles,
     ): Map {
-        $lowestX  = PHP_INT_MAX;
-        $lowestY  = PHP_INT_MAX;
-        $highestX = PHP_INT_MIN;
-        $highestY = PHP_INT_MIN;
+        /** @var non-empty-array<int> $x */
+        $x = [];
+
+        /** @var non-empty-array<int> $y */
+        $y = [];
 
         foreach ($tiles as $tile) {
-            if ($tile->coordinate->x < $lowestX) {
-                $lowestX = $tile->coordinate->x;
-            }
-
-            if ($tile->coordinate->y < $lowestY) {
-                $lowestY = $tile->coordinate->y;
-            }
-
-            if ($tile->coordinate->x > $highestX) {
-                $highestX = $tile->coordinate->x;
-            }
-
-            if ($tile->coordinate->y <= $highestY) {
-                continue;
-            }
-
-            $highestY = $tile->coordinate->y;
+            $x[] = $tile->coordinate->x;
+            $y[] = $tile->coordinate->y;
         }
+
+        $lowestX  = min($x);
+        $lowestY  = min($y);
+        $highestX = max($x);
+        $highestY = max($y);
 
         return new Map(
             new Dimensions(
