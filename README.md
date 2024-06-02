@@ -49,13 +49,15 @@ $stitcher = new Stitcher(
     ),
 );
 
-$stitcher->stitch(
+$image = $stitcher->stitch(
+    'image/png',
     Map::calculate(
         new Dimensions(512, 512),
         ...$tiles,
     ),
-    'output/two_tile.png',
 );
+
+file_put_contents('output/two_tile.png', $image);
 ```
 
 The result:
@@ -69,6 +71,7 @@ The result:
 - [X] Pick up desired image format from render output argument, it's PNG only now
 - [ ] Support pointing at directory and pick up all images utilizing a callable to parse coordinates
 - [X] Switch to abstraction layer for image operations
+- [ ] Reduce direct I/O in this package by providing a loader interface and outputting the resulting image as string by MIME type
 - [ ] Dynamic tile sizes + scaling up any tiles smaller than the largest tile
 
 # License

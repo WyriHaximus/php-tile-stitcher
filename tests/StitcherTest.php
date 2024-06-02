@@ -13,13 +13,10 @@ use WyriHaximus\TileStitcher\Stitcher;
 use WyriHaximus\TileStitcher\Tile;
 
 use function imagecolorsforindex;
-use function md5;
 use function Safe\file_get_contents;
 use function Safe\imagecolorat;
 use function Safe\imagecreatefromstring;
 use function Safe\imagedestroy;
-use function Safe\unlink;
-use function time;
 
 final class StitcherTest extends TestCase
 {
@@ -29,24 +26,21 @@ final class StitcherTest extends TestCase
      */
     public function render(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile ...$tiles): void
     {
-        $output = $this->getTmpDir() . time() . '-' . md5($expectedOutput) . '.png';
-        (new Stitcher(new ImageManager(new Driver())))->stitch(
+        $image = (new Stitcher(new ImageManager(new Driver())))->stitch(
+            'image/png',
             Map::calculate(
                 new Dimensions(512, 512),
                 ...$tiles,
             ),
-            $output,
         );
 
-        $this->compareImages($expectedWidth, $expectedHeight, $expectedOutput, $output);
-
-        unlink($output);
+        $this->compareImages($expectedWidth, $expectedHeight, $expectedOutput, $image);
     }
 
-    private function compareImages(int $expectedWidth, int $expectedHeight, string $expectedResult, string $fileResult): void
+    private function compareImages(int $expectedWidth, int $expectedHeight, string $expectedResult, string $result): void
     {
         $imExpectedResult = imagecreatefromstring(file_get_contents($expectedResult));
-        $imResult         = imagecreatefromstring(file_get_contents($fileResult));
+        $imResult         = imagecreatefromstring($result);
 
         for ($x = 0; $x < $expectedWidth; $x += 32) {
             for ($y = 0; $y < $expectedHeight; $y += 32) {

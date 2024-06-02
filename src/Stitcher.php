@@ -16,7 +16,7 @@ final readonly class Stitcher
     private const IMAGE_OUTPUT_QUALITY = 0;
     private const OFFSET               = 1;
 
-    public function stitch(Map $map, string $output): void
+    public function stitch(string $mimeType, Map $map): string
     {
         $image = $this->imageManager->create($map->dimensions->width, $map->dimensions->height);
 
@@ -29,6 +29,6 @@ final readonly class Stitcher
             );
         }
 
-        $image->save($output, quality: self::IMAGE_OUTPUT_QUALITY);
+        return $image->encodeByMediaType($mimeType, quality: self::IMAGE_OUTPUT_QUALITY)->toString();
     }
 }
