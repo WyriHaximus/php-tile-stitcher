@@ -6,10 +6,10 @@ namespace WyriHaximus\Tests\TileStitcher;
 
 use RuntimeException;
 use WyriHaximus\TileStitcher\Coordinate;
+use WyriHaximus\TileStitcher\FileLoader;
 use WyriHaximus\TileStitcher\Tile;
 
 use function array_map;
-use function array_reverse;
 use function dir;
 use function explode;
 use function is_file;
@@ -17,7 +17,6 @@ use function Safe\getimagesize;
 use function strlen;
 use function strpos;
 use function substr;
-use function usort;
 
 final class Provider
 {
@@ -59,7 +58,7 @@ final class Provider
                             ),
                         ),
                     ),
-                    $images->path . $image,
+                    new FileLoader($images->path . $image),
                 );
             }
 
@@ -67,61 +66,14 @@ final class Provider
 
             $mapSize = getimagesize(__DIR__ . '/maps/' . $tile . '.png');
 
-            yield $tile . '_unsorted' => [
+            yield $tile => [
                 $mapSize[0],
                 $mapSize[1],
                 __DIR__ . '/maps/' . $tile . '.png',
                 ...$tileImages,
-            ];
-
-            yield $tile . '_reversed' => [
-                $mapSize[0],
-                $mapSize[1],
-                __DIR__ . '/maps/' . $tile . '.png',
-                ...array_reverse($tileImages),
-            ];
-
-            usort($tileImages, static fn (Tile $left, Tile $right): int => self::parseCoordsFromTileFileName($left->fileName)[0] <=> self::parseCoordsFromTileFileName($right->fileName)[0]);
-
-            yield $tile . '_half_sorted' => [
-                $mapSize[0],
-                $mapSize[1],
-                __DIR__ . '/maps/' . $tile . '.png',
-                ...$tileImages,
-            ];
-
-            yield $tile . '_half_sorted_reversed' => [
-                $mapSize[0],
-                $mapSize[1],
-                __DIR__ . '/maps/' . $tile . '.png',
-                ...array_reverse($tileImages),
-            ];
-
-            usort($tileImages, static fn (Tile $left, Tile $right): int => self::parseCoordsFromTileFileName($left->fileName)[1] <=> self::parseCoordsFromTileFileName($right->fileName)[1]);
-
-            yield $tile . '_sorted' => [
-                $mapSize[0],
-                $mapSize[1],
-                __DIR__ . '/maps/' . $tile . '.png',
-                ...$tileImages,
-            ];
-
-            yield $tile . '_sorted_reversed' => [
-                $mapSize[0],
-                $mapSize[1],
-                __DIR__ . '/maps/' . $tile . '.png',
-                ...array_reverse($tileImages),
             ];
         }
 
         $tiles->close();
-    }
-
-    /** @return array<int> */
-    private static function parseCoordsFromTileFileName(string $fileName): array
-    {
-        [$x, $y] = explode('x', substr($fileName, 0, -4));
-
-        return [(int) $x, (int) $y];
     }
 }

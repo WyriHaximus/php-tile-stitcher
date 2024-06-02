@@ -29,17 +29,18 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use WyriHaximus\TileStitcher\Coordinate;
 use WyriHaximus\TileStitcher\Dimensions;
+use WyriHaximus\TileStitcher\FileLoader;
 use WyriHaximus\TileStitcher\Stitcher;
 use WyriHaximus\TileStitcher\Tile;
 
 $tiles = [
     new Tile(
         new Coordinate(69, 69),
-        'map/69_69.png',
+        new FileLoader('map/69_69.png'),
     ),
     new Tile(
         new Coordinate(70, 69),
-        'map/70_69.png',
+        new FileLoader('map/70_69.png'),
     ),
 ];
 
@@ -64,6 +65,54 @@ The result:
 
 ![Two tile stitched image](tests/maps/1x2.png)
 
+# Advanced
+
+## Loaders
+
+The main goal of this package is to take tiles and stitch them together into one, there for all I/O bound operations
+have not place in this package. However we can't ignore the fact that we need to load tile images from somewhere. And
+since some maps can be massive the `LoaderInterface` is included to do reading I/O. A `FileLoader` is included in this
+package to provide the most basic implementation. (And, well, not ship a package without being fully functional 😅.)
+
+For example this is an implementation using [`react/filesystem`](https://github.com/reactphp/filesystem/?tab=readme-ov-file#getcontents):
+
+```php
+use React\Filesystem\Node\FileInterface;
+
+use function React\Async\await;
+
+final readonly class ReactFileLoader implements LoaderInterface
+{
+    public function __construct(private FileInterface $file)
+    {
+    }
+
+    public function load(): string
+    {
+        return await($this->file->getContents());
+    }
+}
+```
+
+This is an example using [`Flysystem`](https://flysystem.thephpleague.com/docs/) unlocking S3 and a whole range of
+different storage systems:
+
+```php
+use League\Flysystem\Filesystem;
+
+final readonly class FLysystemFileLoader implements LoaderInterface
+{
+    public function __construct(private Filesystem $filesystem, private string $path)
+    {
+    }
+
+    public function load(): string
+    {
+        return $this->filesystem->read($this->path);
+    }
+}
+```
+
 # Todo
 
 - [X] `Map::calculateMap` method to calculate the size of the resulting map image
@@ -71,7 +120,7 @@ The result:
 - [X] Pick up desired image format from render output argument, it's PNG only now
 - [ ] Support pointing at directory and pick up all images utilizing a callable to parse coordinates
 - [X] Switch to abstraction layer for image operations
-- [ ] Reduce direct I/O in this package by providing a loader interface and outputting the resulting image as string by MIME type
+- [X] Reduce direct I/O in this package by providing a loader interface and outputting the resulting image as string by MIME type
 - [ ] Dynamic tile sizes + scaling up any tiles smaller than the largest tile
 
 # License

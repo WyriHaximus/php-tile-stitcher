@@ -8,7 +8,7 @@ final readonly class Tile
 {
     public function __construct(
         public Coordinate $coordinate,
-        public string $fileName,
+        public LoaderInterface $loader,
     ) {
     }
 }
