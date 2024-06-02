@@ -22,7 +22,7 @@ final readonly class Stitcher
 
         foreach ($map->tiles as $tile) {
             $image->place(
-                $this->imageManager->read($tile->fileName),
+                $this->imageManager->read($tile->loader->load()),
                 self::PLACEMENT_POSITION,
                 (($tile->coordinate->x + self::OFFSET) * $map->tileSize->width) - (($map->lowest->x + self::OFFSET) * $map->tileSize->width),
                 (($tile->coordinate->y + self::OFFSET) * $map->tileSize->height) - (($map->lowest->y + self::OFFSET) * $map->tileSize->height),
