@@ -21,12 +21,19 @@ final readonly class Stitcher
         $image = $this->imageManager->create($map->dimensions->width, $map->dimensions->height);
 
         foreach ($map->tiles as $tile) {
+            $tileImage = $this->imageManager->read($tile->loader->load());
+            /** @infection-ignore-all */
+            if ($tileImage->size()->width() !== $map->tileSize->width || $tileImage->size()->height() !== $map->tileSize->height) {
+                $tileImage = $tileImage->resize($map->tileSize->width, $map->tileSize->height);
+            }
+
             $image->place(
-                $this->imageManager->read($tile->loader->load()),
+                $tileImage,
                 self::PLACEMENT_POSITION,
                 (($tile->coordinate->x + self::OFFSET) * $map->tileSize->width) - (($map->lowest->x + self::OFFSET) * $map->tileSize->width),
                 (($tile->coordinate->y + self::OFFSET) * $map->tileSize->height) - (($map->lowest->y + self::OFFSET) * $map->tileSize->height),
             );
+            unset($tileImage);
         }
 
         return $image->encodeByMediaType($mimeType, quality: self::IMAGE_OUTPUT_QUALITY)->toString();
