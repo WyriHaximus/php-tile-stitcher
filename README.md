@@ -121,7 +121,7 @@ final readonly class FLysystemFileLoader implements LoaderInterface
 - [ ] Support pointing at directory and pick up all images utilizing a callable to parse coordinates
 - [X] Switch to abstraction layer for image operations
 - [X] Reduce direct I/O in this package by providing a loader interface and outputting the resulting image as string by MIME type
-- [ ] Dynamic tile sizes + scaling up any tiles smaller than the largest tile
+- [X] Automatically resize tiles to the desired tile size
 
 # License
 
