@@ -16,13 +16,18 @@ use function imagecolorsforindex;
 use function Safe\file_get_contents;
 use function Safe\imagecolorat;
 use function Safe\imagecreatefromstring;
-use function Safe\imagedestroy;
 
 final class StitcherTest extends TestCase
 {
     /**
      * @test
      * @dataProvider \WyriHaximus\Tests\TileStitcher\Provider::tiles
+     * @covers \WyriHaximus\TileStitcher\Coordinate
+     * @covers \WyriHaximus\TileStitcher\Dimensions
+     * @covers \WyriHaximus\TileStitcher\FileLoader
+     * @covers \WyriHaximus\TileStitcher\Map
+     * @covers \WyriHaximus\TileStitcher\Stitcher
+     * @covers \WyriHaximus\TileStitcher\Tile
      */
     public function render(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile ...$tiles): void
     {
@@ -55,8 +60,5 @@ final class StitcherTest extends TestCase
                 self::assertEquals($colorsExpectedResult['blue'], $colorsResult['blue']);
             }
         }
-
-        imagedestroy($imExpectedResult);
-        imagedestroy($imResult);
     }
 }
