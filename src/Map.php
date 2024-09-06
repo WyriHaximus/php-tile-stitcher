@@ -26,8 +26,11 @@ final readonly class Map
 
     public static function calculate(
         Dimensions $tileSize,
+        Tile $requiredTile,
         Tile ...$tiles,
     ): Map {
+        $tiles = [$requiredTile, ...$tiles];
+
         /** @var non-empty-array<int> $x */
         $x = [];
 
