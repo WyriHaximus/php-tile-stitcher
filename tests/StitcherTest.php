@@ -11,6 +11,7 @@ use WyriHaximus\TileStitcher\Dimensions;
 use WyriHaximus\TileStitcher\Map;
 use WyriHaximus\TileStitcher\Stitcher;
 use WyriHaximus\TileStitcher\Tile;
+use WyriHaximus\TileStitcher\TileLocatorInterface;
 
 use function imagecolorsforindex;
 use function Safe\file_get_contents;
@@ -22,6 +23,7 @@ final class StitcherTest extends TestCase
     /**
      * @test
      * @dataProvider \WyriHaximus\Tests\TileStitcher\Provider::tiles
+     * @covers \WyriHaximus\TileStitcher\CallalbleTileLocator
      * @covers \WyriHaximus\TileStitcher\Coordinate
      * @covers \WyriHaximus\TileStitcher\Dimensions
      * @covers \WyriHaximus\TileStitcher\FileLoader
@@ -29,7 +31,7 @@ final class StitcherTest extends TestCase
      * @covers \WyriHaximus\TileStitcher\Stitcher
      * @covers \WyriHaximus\TileStitcher\Tile
      */
-    public function render(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile ...$tiles): void
+    public function render(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile|TileLocatorInterface ...$tiles): void
     {
         $image = (new Stitcher(new ImageManager(new Driver())))->stitch(
             'image/png',
