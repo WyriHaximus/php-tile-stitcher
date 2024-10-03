@@ -8,6 +8,7 @@ use WyriHaximus\TestUtilities\TestCase;
 use WyriHaximus\TileStitcher\Dimensions;
 use WyriHaximus\TileStitcher\Map;
 use WyriHaximus\TileStitcher\Tile;
+use WyriHaximus\TileStitcher\TileLocatorInterface;
 
 final class MapTest extends TestCase
 {
@@ -15,7 +16,7 @@ final class MapTest extends TestCase
      * @test
      * @dataProvider \WyriHaximus\Tests\TileStitcher\Provider::tiles
      */
-    public function calculateMap(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile ...$tiles): void
+    public function calculateMap(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile|TileLocatorInterface ...$tiles): void
     {
         $map = Map::calculate(
             new Dimensions(512, 512),

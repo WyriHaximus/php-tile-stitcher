@@ -26,10 +26,14 @@ final readonly class Map
 
     public static function calculate(
         Dimensions $tileSize,
-        Tile $requiredTile,
+        Tile|TileLocatorInterface $tileOrLocator,
         Tile ...$tiles,
     ): Map {
-        $tiles = [$requiredTile, ...$tiles];
+        /**
+         * @psalm-suppress InvalidOperand
+         * @var array<Tile> $tiles
+         */
+        $tiles = [...self::resolveTiles($tileOrLocator, ...$tiles)];
 
         /** @var non-empty-array<int> $x */
         $x = [];
@@ -57,5 +61,21 @@ final readonly class Map
             $tileSize,
             ...$tiles,
         );
+    }
+
+    /** @return iterable<Tile> */
+    private static function resolveTiles(
+        Tile|TileLocatorInterface $tileOrLocator,
+        Tile ...$tiles,
+    ): iterable {
+        if ($tileOrLocator instanceof Tile) {
+            yield $tileOrLocator;
+            yield from $tiles;
+
+            return;
+        }
+
+        yield from $tiles;
+        yield from $tileOrLocator->locate();
     }
 }

@@ -113,12 +113,45 @@ final readonly class FLysystemFileLoader implements LoaderInterface
 }
 ```
 
+## Locators
+
+Locators can be used in stead of passing a static list of tile objects to the `Map::calculate` as a way to handle more
+dynamic use cases. This package ships with the `CallalbleTileLocator` to aid with average day usage of this package.
+It will pass the path you give it plus the file name into the callable you pass it. The callable can either return a
+`Tile` or null on no-op. And it will never go deeper than one level.
+
+```php
+$image = $stitcher->stitch(
+    'image/png',
+    Map::calculate(
+        new Dimensions(512, 512),
+        new CallalbleTileLocator(
+            'map/',
+            static function (string $fileName): Tile {
+                $fileNameWithoutExtension = str_replace('.png', '', basename($fileName));
+                $coords = explode('_', $fileNameWithoutExtension);
+
+                return new Tile(
+                    new Coordinate(
+                        ...array_map('intval', $coords),
+                    ),
+                    new FileLoader($fileName),
+                );
+            }
+        ),
+    ),
+);
+```
+
+Any implementation of the `TileLocatorInterface` is only expected to return an iterable of `Tile` instances. The `Map`
+will only iterate over it once.
+
 # Todo
 
 - [X] `Map::calculateMap` method to calculate the size of the resulting map image
 - [X] `Switcher::stitch` method to take the `Map` and stitch it together into an image
 - [X] Pick up desired image format from render output argument, it's PNG only now
-- [ ] Support pointing at directory and pick up all images utilizing a callable to parse coordinates
+- [X] Support pointing at directory and pick up all images utilizing a callable to parse coordinates
 - [X] Switch to abstraction layer for image operations
 - [X] Reduce direct I/O in this package by providing a loader interface and outputting the resulting image as string by MIME type
 - [X] Automatically resize tiles to the desired tile size
