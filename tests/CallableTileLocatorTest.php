@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WyriHaximus\Tests\TileStitcher;
 
+use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
 use WyriHaximus\TestUtilities\TestCase;
 use WyriHaximus\TileStitcher\CallalbleTileLocator;
@@ -16,7 +17,7 @@ use function random_bytes;
 
 final class CallableTileLocatorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function invalidDirectory(): void
     {
         $nonExistantDirName = bin2hex(random_bytes(13));
@@ -29,16 +30,13 @@ final class CallableTileLocatorTest extends TestCase
         self::expectExceptionMessage('Unable to list relevant tile sets: dir(' . $nonExistantDirName . '): Failed to open directory');
 
         $tiles = [
-            /** @phpstan-ignore-next-line */
-            ...(new CallalbleTileLocator($nonExistantDirName, static function (): Tile|null {
-                return null;
-            }))->locate(),
+            ...(new CallalbleTileLocator($nonExistantDirName, static fn (): Tile|null => null))->locate(),
         ];
 
         self::assertCount(0, $tiles);
     }
 
-    /** @test */
+    #[Test]
     public function yield3NullsAndOneTile(): void
     {
         $count = 0;

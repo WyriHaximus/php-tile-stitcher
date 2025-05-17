@@ -6,6 +6,8 @@ namespace WyriHaximus\Tests\TileStitcher;
 
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\Test;
 use WyriHaximus\TestUtilities\TestCase;
 use WyriHaximus\TileStitcher\Dimensions;
 use WyriHaximus\TileStitcher\Map;
@@ -20,17 +22,8 @@ use function Safe\imagecreatefromstring;
 
 final class StitcherTest extends TestCase
 {
-    /**
-     * @test
-     * @dataProvider \WyriHaximus\Tests\TileStitcher\Provider::tiles
-     * @covers \WyriHaximus\TileStitcher\CallalbleTileLocator
-     * @covers \WyriHaximus\TileStitcher\Coordinate
-     * @covers \WyriHaximus\TileStitcher\Dimensions
-     * @covers \WyriHaximus\TileStitcher\FileLoader
-     * @covers \WyriHaximus\TileStitcher\Map
-     * @covers \WyriHaximus\TileStitcher\Stitcher
-     * @covers \WyriHaximus\TileStitcher\Tile
-     */
+    #[Test]
+    #[DataProviderExternal(Provider::class, 'tiles')]
     public function render(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile|TileLocatorInterface ...$tiles): void
     {
         $image = (new Stitcher(new ImageManager(new Driver())))->stitch(
@@ -56,10 +49,10 @@ final class StitcherTest extends TestCase
                 $rgbResult            = imagecolorat($imResult, $x, $y);
                 $colorsResult         = imagecolorsforindex($imResult, $rgbResult);
 
-                self::assertEquals($colorsExpectedResult['alpha'], $colorsResult['alpha']);
-                self::assertEquals($colorsExpectedResult['red'], $colorsResult['red']);
-                self::assertEquals($colorsExpectedResult['green'], $colorsResult['green']);
-                self::assertEquals($colorsExpectedResult['blue'], $colorsResult['blue']);
+                self::assertSame($colorsExpectedResult['alpha'], $colorsResult['alpha']);
+                self::assertSame($colorsExpectedResult['red'], $colorsResult['red']);
+                self::assertSame($colorsExpectedResult['green'], $colorsResult['green']);
+                self::assertSame($colorsExpectedResult['blue'], $colorsResult['blue']);
             }
         }
     }

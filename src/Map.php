@@ -9,7 +9,7 @@ use function min;
 
 final readonly class Map
 {
-    private const OFFSET = 1;
+    private const int OFFSET = 1;
 
     /** @var array<Tile> */
     public array $tiles;

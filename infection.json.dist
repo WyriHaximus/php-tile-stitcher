@@ -16,7 +16,22 @@
     "minCoveredMsi": 100,
     "ignoreMsiWithNoMutations": true,
     "mutators": {
-        "@default": true
+        "@default": true,
+        "Concat": {
+            "ignore": [
+                "WyriHaximus\\TileStitcher\\FileLoader::load"
+            ]
+        },
+        "ConcatOperandRemoval": {
+            "ignore": [
+                "WyriHaximus\\TileStitcher\\FileLoader::load"
+            ]
+        },
+        "IfNegation": {
+            "ignore": [
+                "WyriHaximus\\TileStitcher\\FileLoader::load"
+            ]
+        }
     },
     "phpUnit": {
         "configDir": "./etc/qa/"

@@ -12,9 +12,9 @@ final readonly class Stitcher
     {
     }
 
-    private const PLACEMENT_POSITION   = 'top-left';
-    private const IMAGE_OUTPUT_QUALITY = 0;
-    private const OFFSET               = 1;
+    private const string PLACEMENT_POSITION = 'top-left';
+    private const int IMAGE_OUTPUT_QUALITY  = 0;
+    private const int OFFSET                = 1;
 
     public function stitch(string $mimeType, Map $map): string
     {

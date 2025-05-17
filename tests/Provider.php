@@ -71,6 +71,9 @@ final class Provider
             $images->close();
 
             $mapSize = getimagesize(__DIR__ . '/maps/' . $tile . '.png');
+            if ($mapSize === null) {
+                throw new RuntimeException('Unable to get tile\'s size: ' . $tile);
+            }
 
             yield $tile . ' tile list' => [
                 $mapSize[0],
