@@ -146,21 +146,11 @@ $image = $stitcher->stitch(
 Any implementation of the `TileLocatorInterface` is only expected to return an iterable of `Tile` instances. The `Map`
 will only iterate over it once.
 
-# Todo
-
-- [X] `Map::calculateMap` method to calculate the size of the resulting map image
-- [X] `Switcher::stitch` method to take the `Map` and stitch it together into an image
-- [X] Pick up desired image format from render output argument, it's PNG only now
-- [X] Support pointing at directory and pick up all images utilizing a callable to parse coordinates
-- [X] Switch to abstraction layer for image operations
-- [X] Reduce direct I/O in this package by providing a loader interface and outputting the resulting image as string by MIME type
-- [X] Automatically resize tiles to the desired tile size
-
 # License
 
 The MIT License (MIT)
 
-Copyright (c) 2024 Cees-Jan Kiewiet
+Copyright (c) 2025 Cees-Jan Kiewiet
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
