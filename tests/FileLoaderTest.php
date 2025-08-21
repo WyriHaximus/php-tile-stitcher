@@ -22,6 +22,6 @@ final class FileLoaderTest extends TestCase
         self::expectException(RuntimeException::class);
         self::expectExceptionMessage('Unable to load file (' . $nonExistantFileName . '): ');
 
-        (new FileLoader($nonExistantFileName))->load();
+        new FileLoader($nonExistantFileName)->load();
     }
 }

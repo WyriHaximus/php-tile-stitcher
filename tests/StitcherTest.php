@@ -26,7 +26,7 @@ final class StitcherTest extends TestCase
     #[DataProviderExternal(Provider::class, 'tiles')]
     public function render(int $expectedWidth, int $expectedHeight, string $expectedOutput, Tile|TileLocatorInterface ...$tiles): void
     {
-        $image = (new Stitcher(new ImageManager(new Driver())))->stitch(
+        $image = new Stitcher(new ImageManager(new Driver()))->stitch(
             'image/png',
             Map::calculate(
                 new Dimensions(512, 512),
