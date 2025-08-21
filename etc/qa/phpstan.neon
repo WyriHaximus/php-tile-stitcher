@@ -6,6 +6,3 @@ parameters:
 		-
 			identifier: shipmonk.checkedExceptionInYieldingMethod
 			path: ../../tests/Provider.php
-		-
-			identifier: shipmonk.deadMethod
-			path: ../../tests/Provider.php

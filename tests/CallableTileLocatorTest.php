@@ -30,7 +30,7 @@ final class CallableTileLocatorTest extends TestCase
         self::expectExceptionMessage('Unable to list relevant tile sets: dir(' . $nonExistantDirName . '): Failed to open directory');
 
         $tiles = [
-            ...(new CallalbleTileLocator($nonExistantDirName, static fn (): Tile|null => null))->locate(),
+            ...new CallalbleTileLocator($nonExistantDirName, static fn (): Tile|null => null)->locate(),
         ];
 
         self::assertCount(0, $tiles);
@@ -41,8 +41,7 @@ final class CallableTileLocatorTest extends TestCase
     {
         $count = 0;
         $tiles = [
-            /** @phpstan-ignore-next-line */
-            ...(new CallalbleTileLocator(__DIR__, static function () use (&$count): Tile|null {
+            ...new CallalbleTileLocator(__DIR__, static function () use (&$count): Tile|null {
                 if ($count++ === 3) {
                     return new Tile(
                         new Coordinate(0, 0),
@@ -51,7 +50,7 @@ final class CallableTileLocatorTest extends TestCase
                 }
 
                 return null;
-            }))->locate(),
+            })->locate(),
         ];
 
         self::assertCount(1, $tiles);
