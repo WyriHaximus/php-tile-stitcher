@@ -13,6 +13,7 @@ use function is_string;
 
 final readonly class FileLoader implements LoaderInterface
 {
+    /** @api */
     public function __construct(private string $fileName)
     {
     }

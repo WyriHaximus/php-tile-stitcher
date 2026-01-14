@@ -8,6 +8,7 @@ use Intervention\Image\ImageManager;
 
 final readonly class Stitcher
 {
+    /** @api */
     public function __construct(private ImageManager $imageManager)
     {
     }
@@ -16,6 +17,7 @@ final readonly class Stitcher
     private const int IMAGE_OUTPUT_QUALITY  = 0;
     private const int OFFSET                = 1;
 
+    /** @api */
     public function stitch(string $mimeType, Map $map): string
     {
         $image = $this->imageManager->create($map->dimensions->width, $map->dimensions->height);
