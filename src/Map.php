@@ -24,6 +24,7 @@ final readonly class Map
         $this->tiles = $tiles;
     }
 
+    /** @api */
     public static function calculate(
         Dimensions $tileSize,
         Tile|TileLocatorInterface $tileOrLocator,

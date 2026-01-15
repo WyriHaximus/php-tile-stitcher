@@ -13,7 +13,11 @@ use function is_array;
 
 final readonly class CallalbleTileLocator implements TileLocatorInterface
 {
-    /** @param Closure(string): ?Tile $callable */
+    /**
+     * @param Closure(string): ?Tile $callable
+     *
+     * @api
+     */
     public function __construct(
         private string $directory,
         private Closure $callable,

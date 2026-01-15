@@ -6,6 +6,7 @@ namespace WyriHaximus\TileStitcher;
 
 final readonly class Tile
 {
+    /** @api */
     public function __construct(
         public Coordinate $coordinate,
         public LoaderInterface $loader,
