@@ -30,10 +30,7 @@ final readonly class Map
         Tile|TileLocatorInterface $tileOrLocator,
         Tile ...$tiles,
     ): Map {
-        /**
-         * @psalm-suppress InvalidOperand
-         * @var array<Tile> $tiles
-         */
+        /** @var array<Tile> $tiles */
         $tiles = [...self::resolveTiles($tileOrLocator, ...$tiles)];
 
         /** @var non-empty-array<int> $x */

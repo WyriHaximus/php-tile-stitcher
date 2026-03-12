@@ -27,7 +27,7 @@ final readonly class CallalbleTileLocator implements TileLocatorInterface
     /** @return iterable<Tile> */
     public function locate(): iterable
     {
-        /** @phpstan-ignore-next-line Suppressing the error as we already throw on it */
+        /** @phpstan-ignore ergebnis.noErrorSuppression */
         $tiles = @dir($this->directory);
         if ($tiles === false) {
             $errorSuffix = '';
