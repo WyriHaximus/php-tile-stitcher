@@ -20,7 +20,7 @@ final readonly class FileLoader implements LoaderInterface
 
     public function load(): string
     {
-        /** @phpstan-ignore-next-line Suppressing the error as we already throw on it */
+        /** @phpstan-ignore ergebnis.noErrorSuppression */
         $contents = @file_get_contents($this->fileName);
 
         if (! is_string($contents)) {

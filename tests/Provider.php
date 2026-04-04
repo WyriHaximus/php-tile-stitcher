@@ -16,6 +16,7 @@ use function basename;
 use function count;
 use function dir;
 use function explode;
+use function intval;
 use function is_file;
 use function Safe\getimagesize;
 use function strlen;
@@ -30,7 +31,7 @@ final class Provider
         $convertPathToTile = static fn (string $fileName): Tile => new Tile(
             new Coordinate(
                 ...array_map(
-                    'intval',
+                    intval(...),
                     explode(
                         'x',
                         substr(
