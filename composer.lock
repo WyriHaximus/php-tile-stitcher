@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "242fcf65280d79dcbb25fe40eff8ff37",
+    "content-hash": "7b6f96105370285bb7d9db38237424cc",
     "packages": [
         {
             "name": "intervention/gif",
@@ -9059,38 +9059,38 @@
         },
         {
             "name": "wyrihaximus/test-utilities",
-            "version": "12.0.0",
+            "version": "12.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/php-test-utilities.git",
-                "reference": "19f873e7d49179ff4e6a7630e8bd23d29add8356"
+                "reference": "126ce9928036cb4eaf39e2655dc1f0041965f317"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/php-test-utilities/zipball/19f873e7d49179ff4e6a7630e8bd23d29add8356",
-                "reference": "19f873e7d49179ff4e6a7630e8bd23d29add8356",
+                "url": "https://api.github.com/repos/WyriHaximus/php-test-utilities/zipball/126ce9928036cb4eaf39e2655dc1f0041965f317",
+                "reference": "126ce9928036cb4eaf39e2655dc1f0041965f317",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^2",
-                "ergebnis/composer-normalize": "^2.49.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.20.0",
+                "ergebnis/composer-normalize": "^2.50.0",
+                "ergebnis/phpunit-slow-test-detector": "^2.24.0",
                 "ext-hash": "^8.4",
                 "ext-json": "^8.4",
-                "icanhazstring/composer-unused": "^0.9.5",
-                "infection/infection": "^0.32.3",
+                "icanhazstring/composer-unused": "^0.9.6",
+                "infection/infection": "^0.32.6",
                 "maglnet/composer-require-checker": "^4.20.0",
                 "mockery/mockery": "^1.6.12",
                 "php": "^8.4",
                 "php-parallel-lint/php-console-highlighter": "^1.0.0",
                 "php-parallel-lint/php-parallel-lint": "^1.4.0",
-                "phpstan/phpstan": "^2.1.37",
-                "phpunit/phpunit": "^12.5.8",
-                "rector/rector": "^2.3.5",
-                "roave/backward-compatibility-check": "^8.17.0",
+                "phpstan/phpstan": "^2.1.46",
+                "phpunit/phpunit": "^12.5.16",
+                "rector/rector": "^2.4.0",
+                "roave/backward-compatibility-check": "^8.19.0",
                 "squizlabs/php_codesniffer": "^4.0.1",
                 "wyrihaximus/coding-standard": "^4.0.0",
-                "wyrihaximus/phpstan-rules-wrapper": "^12.1.0"
+                "wyrihaximus/phpstan-rules-wrapper": "^12.2.0"
             },
             "conflict": {
                 "composer-unused/symbol-parser": "<0.3.3",
@@ -9098,7 +9098,7 @@
                 "wyrihaximus/makefiles": "<0.5.0"
             },
             "require-dev": {
-                "wyrihaximus/makefiles": "^0.8.1"
+                "wyrihaximus/makefiles": "^0.10.3"
             },
             "suggest": {
                 "wyrihaximus/async-test-utilities": "The recommended addition to this package when building ReactPHP packages and projects.",
@@ -9131,7 +9131,7 @@
             "description": "🛠️ Test utilities for api-clients packages",
             "support": {
                 "issues": "https://github.com/WyriHaximus/php-test-utilities/issues",
-                "source": "https://github.com/WyriHaximus/php-test-utilities/tree/12.0.0"
+                "source": "https://github.com/WyriHaximus/php-test-utilities/tree/12.1.0"
             },
             "funding": [
                 {
@@ -9139,7 +9139,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-29T19:31:15+00:00"
+            "time": "2026-04-04T21:18:56+00:00"
         },
         {
             "name": "yamadashy/phpstan-friendly-formatter",
