@@ -15,7 +15,7 @@
   "require-dev": {
     "ext-gd": "^8.4",
     "wyrihaximus/makefiles": "^0.7.16",
-    "wyrihaximus/test-utilities": "^10.0.0"
+    "wyrihaximus/test-utilities": "^12.0.0"
   },
   "autoload": {
     "psr-4": {
