@@ -16,6 +16,7 @@ final readonly class Map
 
     private function __construct(
         public Dimensions $dimensions,
+        /** @phpstan-ignore shipmonk.deadProperty.neverRead */
         public Coordinate $highest,
         public Coordinate $lowest,
         public Dimensions $tileSize,
