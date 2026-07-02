@@ -15,10 +15,10 @@ use WyriHaximus\TileStitcher\Stitcher;
 use WyriHaximus\TileStitcher\Tile;
 use WyriHaximus\TileStitcher\TileLocatorInterface;
 
+use function file_get_contents;
+use function imagecolorat;
 use function imagecolorsforindex;
-use function Safe\file_get_contents;
-use function Safe\imagecolorat;
-use function Safe\imagecreatefromstring;
+use function imagecreatefromstring;
 
 final class StitcherTest extends TestCase
 {
@@ -39,15 +39,21 @@ final class StitcherTest extends TestCase
 
     private function compareImages(int $expectedWidth, int $expectedHeight, string $expectedResult, string $result): void
     {
-        $imExpectedResult = imagecreatefromstring(file_get_contents($expectedResult));
-        $imResult         = imagecreatefromstring($result);
+        $expectedResultFileContents = file_get_contents($expectedResult);
+        self::assertIsString($expectedResultFileContents);
+        $imExpectedResult = imagecreatefromstring($expectedResultFileContents);
+        self::assertNotFalse($imExpectedResult);
+        $imResult = imagecreatefromstring($result);
+        self::assertNotFalse($imResult);
 
         for ($x = 0; $x < $expectedWidth; $x += 32) {
             for ($y = 0; $y < $expectedHeight; $y += 32) {
-                $rgbExpectedResult    = imagecolorat($imExpectedResult, $x, $y);
+                $rgbExpectedResult = imagecolorat($imExpectedResult, $x, $y);
+                self::assertNotFalse($rgbExpectedResult);
                 $colorsExpectedResult = imagecolorsforindex($imExpectedResult, $rgbExpectedResult);
                 $rgbResult            = imagecolorat($imResult, $x, $y);
-                $colorsResult         = imagecolorsforindex($imResult, $rgbResult);
+                self::assertNotFalse($rgbResult);
+                $colorsResult = imagecolorsforindex($imResult, $rgbResult);
 
                 self::assertSame($colorsExpectedResult['alpha'], $colorsResult['alpha']);
                 self::assertSame($colorsExpectedResult['red'], $colorsResult['red']);
