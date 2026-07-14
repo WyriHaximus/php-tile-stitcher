@@ -16,9 +16,9 @@ use function basename;
 use function count;
 use function dir;
 use function explode;
+use function getimagesize;
 use function intval;
 use function is_file;
-use function Safe\getimagesize;
 use function strlen;
 use function strpos;
 use function substr;
@@ -72,7 +72,7 @@ final class Provider
             $images->close();
 
             $mapSize = getimagesize(__DIR__ . '/maps/' . $tile . '.png');
-            if ($mapSize === null) {
+            if ($mapSize === false) {
                 throw new RuntimeException('Unable to get tile\'s size: ' . $tile);
             }
 
