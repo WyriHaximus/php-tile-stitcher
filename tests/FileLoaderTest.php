@@ -20,7 +20,7 @@ final class FileLoaderTest extends TestCase
         $nonExistantFileName = bin2hex(random_bytes(13));
 
         self::expectException(RuntimeException::class);
-        self::expectExceptionMessage('Unable to load file (' . $nonExistantFileName . '): ');
+        self::expectExceptionMessageIsOrContains('Unable to load file (' . $nonExistantFileName . '): ');
 
         new FileLoader($nonExistantFileName)->load();
     }
