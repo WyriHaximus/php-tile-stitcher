@@ -27,7 +27,7 @@ final class CallableTileLocatorTest extends TestCase
          * On Linux the full error includes ": No such file or directory" at the end.
          * On Windows that is somehow ": No error".
          */
-        self::expectExceptionMessage('Unable to list relevant tile sets: dir(' . $nonExistantDirName . '): Failed to open directory');
+        self::expectExceptionMessageIsOrContains('Unable to list relevant tile sets: dir(' . $nonExistantDirName . '): Failed to open directory');
 
         $tiles = [
             ...new CallalbleTileLocator($nonExistantDirName, static fn (): Tile|null => null)->locate(),
