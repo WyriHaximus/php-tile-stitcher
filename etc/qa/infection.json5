@@ -32,5 +32,6 @@
                 "WyriHaximus\\TileStitcher\\FileLoader::load"
             ]
         }
-    }
+    },
+    "threads": 64
 }
