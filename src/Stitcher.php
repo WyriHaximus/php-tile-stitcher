@@ -24,7 +24,6 @@ final readonly class Stitcher
 
         foreach ($map->tiles as $tile) {
             $tileImage = $this->imageManager->decodeBinary($tile->loader->load());
-            /** @infection-ignore-all */
             if ($tileImage->size()->width() !== $map->tileSize->width || $tileImage->size()->height() !== $map->tileSize->height) {
                 $tileImage = $tileImage->resize($map->tileSize->width, $map->tileSize->height);
             }
